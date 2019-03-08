@@ -117,10 +117,20 @@ class SettingsController {
 	}
 
 	/**
+	 * Returns the settings name
+	 *
+	 * @since    1.0.0
+	 * @return string
+	 */
+	public function get_settings_name(): string {
+		return $this->settings_name;
+	}
+
+	/**
 	 * Returns the option value.
 	 *
 	 * @param string $option_name Option name to get.
-	 * @param string $default Default value if there's no value.
+	 * @param string $default     Default value if there's no value.
 	 *
 	 * @return mixed|void
 	 */
