@@ -3,7 +3,9 @@
     "description": "Adds a feedback form to WordPress and creates cards in Trello.",
     "type": "wordpress-plugin",
     "license": "GPLv3",
-    "require": {},
+    "require": {
+        "mattzuba/php-trello": "^1.1"
+    },
     "autoload": {
         "psr-4": {
             "FeedMe\\": ""
