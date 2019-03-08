@@ -6,8 +6,8 @@
  *
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    Feed_me
+ * @subpackage Feed_me/admin
  */
 
 namespace FeedMe\admin;
@@ -18,8 +18,8 @@ namespace FeedMe\admin;
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    Feed_me
+ * @subpackage Feed_me/admin
  * @author     Javier De Juan Trujillo social@javierdejuan.es
  */
 class FeedmeAdmin {
