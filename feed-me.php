@@ -41,6 +41,11 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'FEED_ME_VERSION', '1.0.0' );
 
 /**
+ * Currently plugin path.
+ */
+define( 'PLUGIN_PATH', __DIR__ );
+
+/**
  * The code that runs during plugin activation.
  * This action is documented in core/class-feed-me-activator.php
  */
