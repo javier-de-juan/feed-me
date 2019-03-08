@@ -12,6 +12,8 @@
 
 namespace FeedMe\admin\settings;
 
+use FeedMe\core\views\ViewParser;
+
 /**
  * The plugin settings registration
  *
@@ -58,7 +60,9 @@ class SettingsViewController {
 	 * @since    1.0.0
 	 */
 	public function show_menu(): void {
-		add_options_page( $this->plugin_name . ' Settings', ucfirst( $this->plugin_name ), 'manage_options', $this->plugin_name, array( &$this, 'setting_page' ) );
+		$pretty_name = ucwords( $this->plugin_name, '- ' );
+		$page_title  = __( sprintf( '%s Settings', $pretty_name ), $this->plugin_name );
+		add_options_page( $page_title, $pretty_name, 'manage_options', $pretty_name, array( &$this, 'settings_page' ) );
 	}
 
 	/**
@@ -66,5 +70,8 @@ class SettingsViewController {
 	 *
 	 * @since    1.0.0
 	 */
-	public function setting_page(): void {}
+	public function settings_page(): void {
+		$view_parser = new ViewParser( $this->plugin_name, new View( $this->plugin_name ) );
+		echo $view_parser->parse();
+	}
 }
