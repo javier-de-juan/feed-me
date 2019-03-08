@@ -12,9 +12,9 @@
  * @package           Feed_me
  *
  * @wordpress-plugin
- * Plugin Name:       Feed-me
+ * Plugin Name:       Feed-Me
  * Plugin URI:        https://gitlab.com/javierdejuan/feedme
- * Description:       Feed-me is a WordPress plugin which allows users to give feedback to project developers in a Trello panel.
+ * Description:       Feed-Me is a WordPress plugin which allows users to give feedback to project developers in a Trello panel.
  * Version:           1.0.0
  * Author:            Javier De Juan Trujillo
  * Author URI:        https://www.javierdejuan.es
@@ -39,6 +39,11 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'FEED_ME_VERSION', '1.0.0' );
+
+/**
+ * Currently plugin path.
+ */
+define( 'PLUGIN_PATH', __DIR__ );
 
 /**
  * The code that runs during plugin activation.

@@ -6,20 +6,21 @@
  *
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    Feed_me
+ * @subpackage Feed_me/admin
  */
 
 namespace FeedMe\admin;
 
+use FeedMe\admin\settings\SettingsController;
+
 /**
  * The admin-specific functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * Defines the plugin name, version, and hooks for enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/admin
+ * @package    Feed_me
+ * @subpackage Feed_me/admin
  * @author     Javier De Juan Trujillo social@javierdejuan.es
  */
 class FeedmeAdmin {
@@ -50,9 +51,22 @@ class FeedmeAdmin {
 	 * @param      string $plugin_name The name of this plugin.
 	 * @param      string $version     The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct( string $plugin_name, string $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+
+		$this->add_feedme_settings();
+	}
+
+	/**
+	 * Add the plugin settings to configure Trello info.
+	 *
+	 * @since    1.0.0
+	 *
+	 */
+	private function add_feedme_settings(): void {
+		$settings_page = new SettingsController( $this->plugin_name );
+		$settings_page->init();
 	}
 
 	/**
