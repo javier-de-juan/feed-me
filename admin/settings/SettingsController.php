@@ -98,20 +98,20 @@ class SettingsController {
 	 */
 	private function get_settings(): array {
 		return array(
-			'key'   => array(
-				'type'     => 'string',
-				'sanitize' => 'sanitize_text_field',
-				'default'  => '',
+			'trello-api-key'   => array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => '',
 			),
-			'token' => array(
-				'type'     => 'string',
-				'sanitize' => 'sanitize_text_field',
-				'default'  => '',
+			'trello-api-token' => array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => '',
 			),
-			'store' => array(
-				'type'     => 'string',
-				'sanitize' => 'sanitize_text_field',
-				'default'  => '',
+			'trello-board'     => array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => '',
 			)
 		);
 	}

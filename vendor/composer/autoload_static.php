@@ -20,11 +20,22 @@ class ComposerStaticInit964c1e33330c13124a34fc2e09ad11bc
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Trello\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/mattzuba/php-trello/src',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit964c1e33330c13124a34fc2e09ad11bc::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit964c1e33330c13124a34fc2e09ad11bc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit964c1e33330c13124a34fc2e09ad11bc::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
