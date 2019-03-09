@@ -15,10 +15,11 @@
                     <td><input name="{{PLUGIN}}-trello-api-token" id="trello-api-token" value="{% trello_api_token %}" class="regular-text" type="text"></td>
                 </tr>
 
-                <tr>
+                <tr style="display: {% visibility_board_selector %}">
                     <th scope="row"><label for="trello-board">{'Target board'}</label></th>
                     <td>
                         <select name="{{PLUGIN}}-trello-board" id="trello-board">
+                            <option value="">{'Select one trello board to feed'}</option>
                             {% trello_boards | settings %}
                         </select>
                     </td>

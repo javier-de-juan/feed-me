@@ -141,4 +141,13 @@ class View implements ViewInterface {
 
 		return $out;
 	}
+
+	/**
+	 * Returns if the Trello board selector must be shown or not.
+	 *
+	 * @return string 'none' if must trello info was not populated 1 in other wise.
+	 */
+	public function get_visibility_board_selector() {
+		return ($this->get_trello_api_key() && $this->get_trello_api_token()) ?: 'none';
+	}
 }

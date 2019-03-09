@@ -193,7 +193,7 @@ class ViewParser {
 		$settings = new SettingsController( $this->plugin_name );
 		$html     = '';
 
-		$setting       = rtrim( $setting, 's' );
+		$setting       = str_replace('_', '-', rtrim( $setting, 's' ));
 		$current_value = $settings->get( $setting, '' );
 
 		//only values
@@ -203,16 +203,7 @@ class ViewParser {
 
 		foreach ( $options as $value => $label ) {
 
-			$selected = '';
-			if ( empty( $html ) && '' === $current_value ) {
-				$selected = true;
-			} else if ( $current_value == $value ) {
-				$selected = true;
-			}
-
-			if ( $selected ) {
-				$selected = 'selected="selected"';
-			}
+			$selected = $current_value === $value ? 'selected="selected"' : '';
 
 			$html .= "<option value='{$value}' {$selected}>{$label}</option>";
 		}
