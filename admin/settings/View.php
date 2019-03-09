@@ -12,6 +12,7 @@
 namespace FeedMe\admin\settings;
 
 use FeedMe\core\views\ViewInterface;
+use FeedMe\services\TrelloService;
 
 /**
  * The plugin settings View logic
@@ -112,7 +113,13 @@ class View implements ViewInterface {
 		return $this->settings->get( 'token' );
 	}
 
-	public function get_wordpess_fields(): string {
+	public function get_boards(): array {
+		$trello = new TrelloService( $this->get_key(), $this->get_token() );
+
+		return $trello->get_boards();
+	}
+
+	public function get_wordpress_registered_hidden_fields(): string {
 		ob_start();
 		settings_fields( $this->settings->get_settings_name() );
 		$out = ob_get_contents();

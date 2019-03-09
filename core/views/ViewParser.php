@@ -2,6 +2,8 @@
 
 namespace FeedMe\core\views;
 
+use FeedMe\admin\settings\SettingsController;
+
 class ViewParser {
 	public const PATH = PLUGIN_PATH . '/views/';
 	public const EXTENSION = '.tpl';
@@ -85,7 +87,7 @@ class ViewParser {
 			$done = true;
 		}
 
-		add_filter( $this->plugin_name . '_settings', [ __CLASS__, 'create_settings' ], 10, 2 );
+		add_filter( $this->plugin_name . '_settings', [ &$this, 'create_settings' ], 10, 2 );
 	}
 
 	/**
@@ -187,11 +189,12 @@ class ViewParser {
 	 *
 	 * @return string Html with all the options.
 	 */
-	public static function create_settings( array $options, $setting = '' ): string {
-		$html = '';
+	public function create_settings( array $options, $setting = '' ): string {
+		$settings = new SettingsController( $this->plugin_name );
+		$html     = '';
 
 		$setting       = rtrim( $setting, 's' );
-		$current_value = Settings::get( $setting, '' );
+		$current_value = $settings->get( $setting, '' );
 
 		//only values
 		if ( isset( $options[0] ) ) {

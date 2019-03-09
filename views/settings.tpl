@@ -11,6 +11,15 @@
                     <th scope="row"><label for="token">{'Trello API Token'}</label></th>
                     <td><input name="{{PLUGIN}}-token" id="token" value="{% token %}" class="regular-text" type="text"></td>
                 </tr>
+
+                <tr>
+                    <th scope="row"><label for="store">{'Target board'}</label></th>
+                    <td>
+                        <select name="{{PLUGIN}}-board" id="board">
+                            {% boards | settings %}
+                        </select>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
