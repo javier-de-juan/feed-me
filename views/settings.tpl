@@ -7,19 +7,19 @@
         <table class="form-table">
             <tbody>
                 <tr>
-                    <th scope="row"><label for="key">{'Trello API Key'}</label></th>
-                    <td><input name="{{PLUGIN}}-key" id="key" value="{% key %}" class="regular-text" type="text"></td>
+                    <th scope="row"><label for="trello-api-key">{'Trello API Key'}</label></th>
+                    <td><input name="{{PLUGIN}}-trello-api-key" id="trello-api-key" value="{% trello_api_key %}" class="regular-text" type="text"></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="token">{'Trello API Token'}</label></th>
-                    <td><input name="{{PLUGIN}}-token" id="token" value="{% token %}" class="regular-text" type="text"></td>
+                    <th scope="row"><label for="trello-api-token">{'Trello API Token'}</label></th>
+                    <td><input name="{{PLUGIN}}-trello-api-token" id="trello-api-token" value="{% trello_api_token %}" class="regular-text" type="text"></td>
                 </tr>
 
                 <tr>
-                    <th scope="row"><label for="store">{'Target board'}</label></th>
+                    <th scope="row"><label for="trello-board">{'Target board'}</label></th>
                     <td>
-                        <select name="{{PLUGIN}}-board" id="board">
-                            {% boards | settings %}
+                        <select name="{{PLUGIN}}-trello-board" id="trello-board">
+                            {% trello_boards | settings %}
                         </select>
                     </td>
                 </tr>

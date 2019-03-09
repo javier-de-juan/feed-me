@@ -98,8 +98,8 @@ class View implements ViewInterface {
 	 *
 	 * @return string The Trello Key.
 	 */
-	public function get_key(): string {
-		return $this->settings->get( 'key' );
+	public function get_trello_api_key(): string {
+		return $this->settings->get( 'trello-api-key' );
 	}
 
 	/**
@@ -109,12 +109,12 @@ class View implements ViewInterface {
 	 *
 	 * @return string The Trello Token.
 	 */
-	public function get_token(): string {
-		return $this->settings->get( 'token' );
+	public function get_trello_api_token(): string {
+		return $this->settings->get( 'trello-api-token' );
 	}
 
-	public function get_boards(): array {
-		$trello = new TrelloService( $this->get_key(), $this->get_token() );
+	public function get_trello_boards(): array {
+		$trello = new TrelloService( $this->get_trello_api_key(), $this->get_trello_api_token() );
 
 		return $trello->get_boards();
 	}
