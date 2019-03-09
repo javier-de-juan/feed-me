@@ -16,6 +16,8 @@
 
         <p>{% trello_help %}</p>
 
+        {% wordpess_fields %}
+
         <p class="submit">
             <input name="submit" id="submit" class="button button-primary" value="{'Save changes'}" type="submit">
         </p>
