@@ -62,7 +62,7 @@ class SettingsViewController {
 	public function show_menu(): void {
 		$pretty_name = ucwords( $this->plugin_name, '- ' );
 		$page_title  = __( sprintf( '%s Settings', $pretty_name ), $this->plugin_name );
-		add_options_page( $page_title, $this->plugin_name, 'manage_options', $this->plugin_name, array( &$this, 'settings_page' ) );
+		add_options_page( $page_title, $pretty_name, 'manage_options', $pretty_name, array( &$this, 'settings_page' ) );
 	}
 
 	/**
