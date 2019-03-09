@@ -14,7 +14,7 @@
  * @wordpress-plugin
  * Plugin Name:       Feed-Me
  * Plugin URI:        https://gitlab.com/javierdejuan/feedme
- * Description:       Feed-Me is a WordPress plugin which allows users to give feedback to project developers in a Trello panel.
+ * Description:       Feed-Me is a WordPress plugin which allows users to give feedback about the project in a Trello panel.
  * Version:           1.0.0
  * Author:            Javier De Juan Trujillo
  * Author URI:        https://www.javierdejuan.es
