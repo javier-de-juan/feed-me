@@ -84,7 +84,8 @@ class View implements ViewInterface {
 	 * @return string The message with the link.
 	 */
 	public function get_trello_help(): string {
-		$link = '<a href="https://trello.com/1/appKey/generate" target="_blank">https://trello.com/1/appKey/generate</a>';
+		$link
+			= '<a href="https://trello.com/1/appKey/generate" target="_blank">https://trello.com/1/appKey/generate</a>';
 
 		return __( sprintf( '<i>You can get your API Key and API Token here:</i> %s', $link ), $this->plugin_name );
 	}
@@ -109,5 +110,14 @@ class View implements ViewInterface {
 	 */
 	public function get_token(): string {
 		return $this->settings->get( 'token' );
+	}
+
+	public function get_wordpess_fields(): string {
+		ob_start();
+		settings_fields( $this->settings->get_settings_name() );
+		$out = ob_get_contents();
+		ob_end_clean();
+
+		return $out;
 	}
 }
