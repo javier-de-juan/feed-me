@@ -87,6 +87,7 @@ class ViewParser {
 			$done = true;
 		}
 
+		add_filter( $this->plugin_name . '_options', [ &$this, 'create_options' ]);
 		add_filter( $this->plugin_name . '_settings', [ &$this, 'create_settings' ], 10, 2 );
 	}
 
@@ -206,6 +207,21 @@ class ViewParser {
 			$selected = $current_value === $value ? 'selected="selected"' : '';
 
 			$html .= "<option value='{$value}' {$selected}>{$label}</option>";
+		}
+
+		return $html;
+	}
+
+	public function create_options(array $options): string {
+		$html = '';
+
+		//only values
+		if ( isset( $options[0] ) ) {
+			$options = array_combine( $options, $options );
+		}
+
+		foreach($options as $value => $label) {
+			$html .= "<option value='{$value}'>{$label}</option>";
 		}
 
 		return $html;

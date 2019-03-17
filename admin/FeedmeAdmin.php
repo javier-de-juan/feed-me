@@ -13,6 +13,7 @@
 namespace FeedMe\admin;
 
 use FeedMe\admin\settings\SettingsController;
+use FeedMe\admin\widget\WidgetController;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -56,6 +57,7 @@ class FeedmeAdmin {
 		$this->version     = $version;
 
 		$this->add_feedme_settings();
+		$this->add_feedme_widget();
 	}
 
 	/**
@@ -67,6 +69,17 @@ class FeedmeAdmin {
 	private function add_feedme_settings(): void {
 		$settings_page = new SettingsController( $this->plugin_name );
 		$settings_page->init();
+	}
+
+	/**
+	 * Add the plugin settings to configure Trello info.
+	 *
+	 * @since    1.0.0
+	 *
+	 */
+	private function add_feedme_widget(): void {
+		$widget_page = new WidgetController( $this->plugin_name );
+		$widget_page->init();
 	}
 
 	/**
