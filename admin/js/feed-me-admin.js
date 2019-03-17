@@ -52,6 +52,7 @@ UNIR.Feedme = function () {
 	};
 
 	this.open = function (event) {
+		this.form.reset();
 		if (this.wrapper) {
 			this.wrapper.classList.add('activate');
 		}
