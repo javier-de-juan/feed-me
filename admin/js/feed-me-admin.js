@@ -6,6 +6,12 @@ var sending_suprise_message = [
 	'Este proyecto tiene un poquito de ti ... enviando tu feedback',
 ];
 
+var description_placeholder = [
+	'Steps to reproduce:\n- Access into wp-admin\n- Click on Feed Me button\n- Fill the form\n- Send',
+	'Describe your feedback. We will try to found a solution ;-)',
+	''
+];
+
 UNIR.Feedme = function () {
 	var instance = this;
 	this.wrapper = null;
@@ -45,14 +51,11 @@ UNIR.Feedme = function () {
 				return this.close(event);
 			}
 		}.bind(this));
-
-
-		var tags = document.getElementById('feed-me-tags');
-		$(tags).select2({multiple: true});
 	};
 
 	this.open = function (event) {
 		this.form.reset();
+		this._reset_attach_button();
 		if (this.wrapper) {
 			this.wrapper.classList.add('activate');
 		}
@@ -94,7 +97,7 @@ UNIR.Feedme = function () {
 	this.pre_submit = function (event) {
 		this.showNotify('info', sending_suprise_message[Math.floor(Math.random() * sending_suprise_message.length)]);
 
-		var ajax = new XMLHttpRequest();
+		/*var ajax = new XMLHttpRequest();
 
 		ajax.open(this.form.getAttribute('method'), this.form.getAttribute('data-ajax-url'), true);
 
@@ -102,42 +105,49 @@ UNIR.Feedme = function () {
 
 			if (ajax.readyState == ajax.DONE) {
 				if (ajax.status == 200) {
-					try {
-						var response = JSON.parse(ajax.responseText);
-					} catch (e) {
-						console.log('error parsing', ajax.responseText);
-					}
 
-					if (!response) {
-						return;
-					}
-
-					if (response['ok']) {
-						this.showNotify('success', '¡Gracias por tu tiempo. hemos recibido tu feedback correctamente!');
-						event.closeForm = true;
-						setTimeout(this.hideNotify.bind(null, event), 3000);
-					} else {
-						alert(response['msg']);
-					}
 				} else {
 					this.showNotify('error', "Error en la conexión. Inténtelo de nuevo en unos minutos");
 					setTimeout(this.hideNotify.bind(null, event), 3000);
 				}
 			}
-		}.bind(this);
+		}.bind(this);*/
 
 		var form_data = new FormData(this.form);
 
-		unir_feedme_enviorment = "\n" +
+		unir_feedme_environment = "\n" +
 			'* JS currentURL: ' + document.location.href +
 			'* userAgent: ' + navigator.userAgent +
 			'* platform: ' + navigator.platform +
 			'* language: ' + navigator.language +
 			'* cookies?: ' + navigator.cookieEnabled;
 
-		form_data.append('feed-me[enviroment]', unir_feedme_enviorment.toString());
+		form_data.append('feed-me[environment]', unir_feedme_environment.toString());
 		form_data.append('feed-me[jsbacktrace]', unir_feedme_errors.toString());
-		ajax.send(form_data);
+		//ajax.send(form_data);
+
+		fetch(this.form.getAttribute('data-ajax-url'), {
+			method: 'POST',
+			body: form_data,
+		})
+			.then(resp => resp.json())
+			.then(response => {
+				if (!response) {
+					return;
+				}
+
+				if (response['ok']) {
+					this.showNotify('success', '¡Gracias por tu tiempo. hemos recibido tu feedback correctamente!');
+					event.closeForm = true;
+					setTimeout(this.hideNotify.bind(null, event), 3000);
+				} else {
+					alert(response['msg']);
+				}
+			})
+			.catch(error => {
+				console.log('Error en la petición')
+				console.log(error)
+			})
 
 		event.preventDefault();
 		return false;

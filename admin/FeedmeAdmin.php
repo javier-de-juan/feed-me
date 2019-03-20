@@ -3,7 +3,6 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- *
  * @since      1.0.0
  *
  * @package    Feed_me
@@ -64,7 +63,7 @@ class FeedmeAdmin {
 	 * Add the plugin settings to configure Trello info.
 	 *
 	 * @since    1.0.0
-	 *
+	 * @return void
 	 */
 	private function add_feedme_settings(): void {
 		$settings_page = new SettingsController( $this->plugin_name );
@@ -75,7 +74,7 @@ class FeedmeAdmin {
 	 * Add the plugin settings to configure Trello info.
 	 *
 	 * @since    1.0.0
-	 *
+	 * @return void
 	 */
 	private function add_feedme_widget(): void {
 		$widget_page = new WidgetController( $this->plugin_name );
@@ -86,18 +85,22 @@ class FeedmeAdmin {
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since    1.0.0
+	 * @return void
 	 */
 	public function enqueue_styles(): void {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/feed-me-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/feed-me-admin.css', array(),
+			$this->version, 'all' );
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
+	 * @return void
 	 */
 	public function enqueue_scripts(): void {
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/feed-me-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/feed-me-admin.js', array( 'jquery' ),
+			$this->version, false );
 	}
 
 }
