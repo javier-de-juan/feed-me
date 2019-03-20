@@ -129,6 +129,8 @@ class Feedme {
 	private function define_admin_hooks(): void {
 		$plugin_admin = new FeedmeAdmin( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 	}
@@ -139,6 +141,10 @@ class Feedme {
 	 * @since    1.0.0
 	 */
 	public function run(): void {
+		/*if ( ! is_user_logged_in() ) {
+			return;
+		}*/
+
 		$this->loader->run();
 	}
 
