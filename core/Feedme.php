@@ -15,8 +15,6 @@
 
 namespace FeedMe\core;
 
-use FeedMe\admin\FeedmeAdmin;
-
 /**
  * The core plugin class.
  *

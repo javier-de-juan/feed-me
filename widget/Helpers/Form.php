@@ -10,9 +10,9 @@
  * @subpackage Feed_me/admin/widget
  */
 
-namespace FeedMe\admin\widget\Helpers;
+namespace FeedMe\widget\Helpers;
 
-use FeedMe\admin\settings\SettingsController;
+use FeedMe\settings\SettingsController;
 use FeedMe\services\TrelloService;
 
 /**

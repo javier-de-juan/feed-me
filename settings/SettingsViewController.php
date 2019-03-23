@@ -10,7 +10,7 @@
  * @subpackage Feed_me/admin/settings
  */
 
-namespace FeedMe\admin\settings;
+namespace FeedMe\settings;
 
 use FeedMe\core\views\ViewParser;
 

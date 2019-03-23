@@ -10,7 +10,7 @@
  * @subpackage Feed_me/admin
  */
 
-namespace FeedMe\admin\settings;
+namespace FeedMe\settings;
 
 /**
  * The plugin settings registration

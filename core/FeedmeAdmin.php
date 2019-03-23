@@ -9,10 +9,10 @@
  * @subpackage Feed_me/admin
  */
 
-namespace FeedMe\admin;
+namespace FeedMe\core;
 
-use FeedMe\admin\settings\SettingsController;
-use FeedMe\admin\widget\WidgetController;
+use FeedMe\settings\SettingsController;
+use FeedMe\widget\WidgetController;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -88,7 +88,7 @@ class FeedmeAdmin {
 	 * @return void
 	 */
 	public function enqueue_styles(): void {
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/feed-me-admin.css', array(),
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/css/feed-me-admin.css', array(),
 			$this->version, 'all' );
 	}
 
@@ -99,7 +99,7 @@ class FeedmeAdmin {
 	 * @return void
 	 */
 	public function enqueue_scripts(): void {
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/feed-me-admin.js', array( 'jquery' ),
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/js/feed-me-admin.js', array( 'jquery' ),
 			$this->version, false );
 	}
 
