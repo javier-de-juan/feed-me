@@ -27,6 +27,13 @@ use FeedMe\services\TrelloService;
  */
 class View implements ViewInterface {
 
+	const PLACEHOLDER_DESCRIPTION = array(
+			'Describe con detalle el feedback. Trataremos de encontrar una solución ;-)',
+			'Pasos para reproducirlo:\n\n- Acceder al backoffice.\n- Clickar en el botón de Feed Me.\n- Rellenar los campos del formulario.\n- Clickar en Enviar\n\nComportamiento actual:\n\nEnvía una tarjeta al panel de Trello para que el equipo se ponga a ello lo antes posible.\n\nComportamiento esperado:\n\nTener vacaciones ilimitadas en la playa.',
+			'Sería genial añadir lazy loading a las imágenes de la web.',
+			'¿Existe algún plugin que mejore las ventas de la tienda?'
+		);
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -186,5 +193,9 @@ class View implements ViewInterface {
 	 */
 	public function get_ajax_url(): string {
 		return admin_url( 'admin-ajax.php' );
+	}
+
+	public function get_description_placeholder(): string {
+		return __( self::PLACEHOLDER_DESCRIPTION[ array_rand( self::PLACEHOLDER_DESCRIPTION ) ], $this->plugin_name );
 	}
 }

@@ -20,7 +20,7 @@
                     </label>
 
                     <label>{'Description'}*:
-                        <textarea rows="10" name="{{PLUGIN}}[description]" required="required"></textarea>
+                        <textarea rows="14" id="description" name="{{PLUGIN}}[description]" placeholder="{% description_placeholder %}" required="required"></textarea>
                     </label>
 
                     <div id="{{PLUGIN}}-attachment" class="not-important">
