@@ -87,10 +87,15 @@ function register_autoloader(): void {
  * @since    1.0.0
  */
 function run_feed_me(): void {
+	register_autoloader();
+
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+
 	$plugin = new Feedme();
 	$plugin->run();
 }
 
-register_autoloader();
-run_feed_me();
+add_action('init', 'run_feed_me');
 

@@ -141,10 +141,6 @@ class Feedme {
 	 * @since    1.0.0
 	 */
 	public function run(): void {
-		/*if ( ! is_user_logged_in() ) {
-			return;
-		}*/
-
 		$this->loader->run();
 	}
 

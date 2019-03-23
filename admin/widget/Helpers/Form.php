@@ -42,7 +42,7 @@ class Form {
 	 * @access   private
 	 * @var      array $data All trello data.
 	 */
-	protected $data = [];
+	private $data = [];
 
 	/**
 	 * The attachment sent to trello.
@@ -51,7 +51,16 @@ class Form {
 	 * @access   private
 	 * @var      array $attachment Attachment info.
 	 */
-	protected $attachment = array();
+	private $attachment = array();
+
+	/**
+	 * The current user logged.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      Wp_User $current_user User info.
+	 */
+	private $current_user;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -61,7 +70,8 @@ class Form {
 	 * @param      string $plugin_name The ID of this plugin.
 	 */
 	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
+		$this->plugin_name  = $plugin_name;
+		$this->current_user = wp_get_current_user();
 	}
 
 	/**
@@ -239,15 +249,14 @@ class Form {
 	 * @return string Description with URL, current user, environment, js backtrace
 	 */
 	protected function get_description(): string {
-		$desc = $this->data['description'];
-		$desc .= "\n\r * URL: " . $this->data['url'];
-
-		$current_user = wp_get_current_user();
-		$desc         .= "\n\r * Usuario: {$current_user->user_login} <{$current_user->user_email}\>";
-		$desc         .= $this->data['enviroment'];
+		$desc = "**Usuario**: {$this->current_user->user_login} <{$this->current_user->user_email}\>";
+		$desc .= "\n**Url**: " . $this->data['url'];
+		$desc .= "\n**Dispositivo**: {$_SERVER['HTTP_USER_AGENT']}";
+		$desc .= "\n\n**Descripción**:\n{$this->data['description']}";
+		$desc .= $this->data['enviroment'];
 
 		if ( $this->data['jsbacktrace'] ) {
-			$desc .= "\n\r----\n\r * JavaScript:";
+			$desc .= "\n\r----\n\r *JavaScript**:";
 			$desc .= "\n\r```" . $this->data['jsbacktrace'] . "```";
 		}
 

@@ -25,6 +25,7 @@ UNIR.Feedme = function () {
 		this.launcher = document.querySelector('#feed-me .launcher');
 		this.close_button = this.wrapper.getElementsByClassName('close')[0];
 		this.form = this.wrapper.querySelector('form');
+		this.wrapper.querySelector('#description').placeholder = this.wrapper.querySelector('#description').placeholder.replace(/\\n/g, '\n');
 
 		this.launcher.addEventListener('click', function (event) {
 			return this.open(event)
