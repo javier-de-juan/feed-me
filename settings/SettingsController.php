@@ -82,6 +82,20 @@ class SettingsController {
 	}
 
 	/**
+	 * Unregisters all settings with its prefix for being able to save.
+	 *
+	 * @since    1.0.0
+	 *
+	 */
+	public function deactivate_settings(): void {
+		$settings = $this->get_settings();
+
+		foreach ( $settings as $name => $config ) {
+			unregister_setting( $this->settings_name, $this->setting_prefix . $name );
+		}
+	}
+
+	/**
 	 * Returns all settings needed by the plugin.
 	 *
 	 * @since    1.0.0

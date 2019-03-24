@@ -12,6 +12,8 @@
 
 namespace FeedMe\core;
 
+use FeedMe\settings\SettingsController;
+
 /**
  * Fired during plugin deactivation.
  *
@@ -32,7 +34,8 @@ class FeedmeDeactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		$settings = new SettingsController();
+		$settings->deactivate_settings();
 	}
 
 }

@@ -46,14 +46,6 @@ define( 'FEED_ME_VERSION', '1.0.0' );
 define( 'PLUGIN_PATH', __DIR__ );
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in core/class-feed-me-activator.php
- */
-function activate_feed_me(): void {
-	FeedmeActivator::activate();
-}
-
-/**
  * The code that runs during plugin deactivation.
  * This action is documented in core/class-feed-me-deactivator.php
  */
