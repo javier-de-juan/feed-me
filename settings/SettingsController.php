@@ -91,6 +91,7 @@ class SettingsController {
 		$settings = $this->get_settings();
 
 		foreach ( $settings as $name => $config ) {
+			delete_option( $this->setting_prefix . $name );
 			unregister_setting( $this->settings_name, $this->setting_prefix . $name );
 		}
 	}

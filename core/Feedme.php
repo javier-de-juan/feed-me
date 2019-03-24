@@ -182,8 +182,10 @@ class Feedme {
 	 * @return void
 	 */
 	private function add_feedme_widget(): void {
-		$widget_page = new WidgetController();
-		$widget_page->init();
+		if ( SettingsController::get( 'trello-board' ) ) {
+			$widget_page = new WidgetController();
+			$widget_page->init();
+		}
 	}
 
 	/**
