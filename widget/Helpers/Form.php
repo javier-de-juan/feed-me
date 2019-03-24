@@ -10,9 +10,10 @@
  * @subpackage Feed_me/admin/widget
  */
 
-namespace FeedMe\admin\widget\Helpers;
+namespace FeedMe\widget\Helpers;
 
-use FeedMe\admin\settings\SettingsController;
+use FeedMe\core\Feedme;
+use FeedMe\settings\SettingsController;
 use FeedMe\services\TrelloService;
 
 /**
@@ -67,10 +68,9 @@ class Form {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name  = $plugin_name;
+	public function __construct() {
+		$this->plugin_name  = Feedme::PLUGIN_NAME;
 		$this->current_user = wp_get_current_user();
 	}
 
@@ -216,9 +216,8 @@ class Form {
 	 * @return void
 	 */
 	public function send_to_trello(): void {
-		$settings = new SettingsController( $this->plugin_name );
-		$trello   = new TrelloService( $settings->get( 'trello-api-key' ), $settings->get( 'trello-api-token' ) );
-		$store    = $settings->get( 'store' );
+		$trello   = new TrelloService( SettingsController::get( 'trello-api-key' ), SettingsController::get( 'trello-api-token' ) );
+		$store    = SettingsController::get( 'store' );
 
 		$trello->add_card( $store, $this->data['type'], $this->get_row(), $this->attachment );
 	}

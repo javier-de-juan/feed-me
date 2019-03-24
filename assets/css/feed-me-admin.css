@@ -325,3 +325,7 @@
 #feed-me .locking-error label {
     display: inline-block;
 }
+
+#feed-me h1:not(.site-title)::before, h2::before {
+    content: none;
+}

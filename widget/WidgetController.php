@@ -10,7 +10,10 @@
  * @subpackage Feed_me/admin/widget
  */
 
-namespace FeedMe\admin\widget;
+namespace FeedMe\widget;
+
+use FeedMe\core\Feedme;
+use FeedMe\widget\Helpers\Form;
 
 /**
  * The widget controller
@@ -48,8 +51,8 @@ class WidgetController {
 	 *
 	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
+	public function __construct() {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
 		$this->response    = [
 			'ok'    => true,
 			'error' => '',
@@ -67,7 +70,7 @@ class WidgetController {
 		if ( wp_doing_ajax() ) {
 			$this->register_ajax_controller();
 		} else {
-			$widgetViewController = new WidgetViewController( $this->plugin_name );
+			$widgetViewController = new WidgetViewController();
 			$widgetViewController->load();
 		}
 	}
@@ -107,7 +110,7 @@ class WidgetController {
 	 */
 	public function handle_form(): void {
 		try {
-			$form = new Helpers\Form( $this->plugin_name );
+			$form = new Form();
 			$form->import( $_POST[ $this->plugin_name ] );
 			$form->set_attachment( $_FILES[ $this->plugin_name ] );
 			$form->send_to_trello();

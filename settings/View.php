@@ -9,8 +9,9 @@
  * @subpackage Feed_me/admin/settings
  */
 
-namespace FeedMe\admin\settings;
+namespace FeedMe\settings;
 
+use FeedMe\core\Feedme;
 use FeedMe\core\views\ViewInterface;
 use FeedMe\services\TrelloService;
 
@@ -35,24 +36,13 @@ class View implements ViewInterface {
 	private $plugin_name;
 
 	/**
-	 * The settings controller.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string $settings The settings controller used to get settings.
-	 */
-	private $settings;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
-		$this->settings    = new SettingsController( $this->plugin_name );
+	public function __construct() {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
 	}
 
 	/**
@@ -99,7 +89,7 @@ class View implements ViewInterface {
 	 * @return string The Trello Key.
 	 */
 	public function get_trello_api_key(): string {
-		return $this->settings->get( 'trello-api-key' );
+		return SettingsController::get( 'trello-api-key' );
 	}
 
 	/**
@@ -110,7 +100,7 @@ class View implements ViewInterface {
 	 * @return string The Trello Token.
 	 */
 	public function get_trello_api_token(): string {
-		return $this->settings->get( 'trello-api-token' );
+		return SettingsController::get( 'trello-api-token' );
 	}
 
 	/**
@@ -135,7 +125,8 @@ class View implements ViewInterface {
 	 */
 	public function get_wordpress_registered_hidden_fields(): string {
 		ob_start();
-		settings_fields( $this->settings->get_settings_name() );
+		$settings = new SettingsController();
+		settings_fields( $settings->get_settings_name() );
 		$out = ob_get_contents();
 		ob_end_clean();
 
@@ -148,6 +139,6 @@ class View implements ViewInterface {
 	 * @return string 'none' if must trello info was not populated 1 in other wise.
 	 */
 	public function get_visibility_board_selector() {
-		return ($this->get_trello_api_key() && $this->get_trello_api_token()) ?: 'none';
+		return ( $this->get_trello_api_key() && $this->get_trello_api_token() ) ?: 'none';
 	}
 }
