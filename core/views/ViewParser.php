@@ -2,7 +2,8 @@
 
 namespace FeedMe\core\views;
 
-use FeedMe\admin\settings\SettingsController;
+use FeedMe\settings\SettingsController;
+use FeedMe\core\Feedme;
 
 class ViewParser {
 	public const PATH = PLUGIN_PATH . '/views/';
@@ -42,11 +43,10 @@ class ViewParser {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string        $plugin_name The ID of this plugin.
-	 * @param      ViewInterface $view        The view to parse
+	 * @param      ViewInterface $view The view to parse
 	 */
-	public function __construct( string $plugin_name, ViewInterface $view ) {
-		$this->plugin_name = $plugin_name;
+	public function __construct( ViewInterface $view ) {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
 		$this->view        = $view;
 		$this->content     = $this->get_view_content();
 		$this->register_common_filters();
@@ -76,7 +76,6 @@ class ViewParser {
 	 * Register the filters for the plugin for create options and settings.
 	 *
 	 * @since    1.0.0
-	 * @return  void
 	 */
 	protected function register_common_filters() {
 		static $done = false;
@@ -87,7 +86,7 @@ class ViewParser {
 			$done = true;
 		}
 
-		add_filter( $this->plugin_name . '_options', [ &$this, 'create_options' ]);
+		add_filter( $this->plugin_name . '_options', [ &$this, 'create_options' ] );
 		add_filter( $this->plugin_name . '_settings', [ &$this, 'create_settings' ], 10, 2 );
 	}
 
@@ -191,11 +190,10 @@ class ViewParser {
 	 * @return string Html with all the options.
 	 */
 	public function create_settings( array $options, $setting = '' ): string {
-		$settings = new SettingsController( $this->plugin_name );
 		$html     = '';
 
-		$setting       = str_replace('_', '-', rtrim( $setting, 's' ));
-		$current_value = $settings->get( $setting, '' );
+		$setting       = str_replace( '_', '-', rtrim( $setting, 's' ) );
+		$current_value = SettingsController::get( $setting, '' );
 
 		//only values
 		if ( isset( $options[0] ) ) {
@@ -212,7 +210,7 @@ class ViewParser {
 		return $html;
 	}
 
-	public function create_options(array $options): string {
+	public function create_options( array $options ): string {
 		$html = '';
 
 		//only values
@@ -220,7 +218,7 @@ class ViewParser {
 			$options = array_combine( $options, $options );
 		}
 
-		foreach($options as $value => $label) {
+		foreach ( $options as $value => $label ) {
 			$html .= "<option value='{$value}'>{$label}</option>";
 		}
 

@@ -12,6 +12,7 @@
 
 namespace FeedMe\widget;
 
+use FeedMe\core\Feedme;
 use FeedMe\core\views\ViewParser;
 
 /**
@@ -25,6 +26,13 @@ use FeedMe\core\views\ViewParser;
  */
 class WidgetViewController {
 
+	/**
+	 * The ID of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string $plugin_name The ID of this plugin.
+	 */
 	private $plugin_name;
 
 	/**
@@ -32,10 +40,9 @@ class WidgetViewController {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
+	public function __construct() {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
 	}
 
 	/**
@@ -106,7 +113,7 @@ class WidgetViewController {
 	 * @return void
 	 */
 	public function add_html() {
-		$view_parser = new ViewParser( $this->plugin_name, new View( $this->plugin_name ) );
+		$view_parser = new ViewParser( new View() );
 		echo $view_parser->parse();
 	}
 }

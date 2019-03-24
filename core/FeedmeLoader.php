@@ -100,7 +100,6 @@ class FeedmeLoader {
 	 * @return   array                                  The collection of actions and filters registered with WordPress.
 	 */
 	private function add( array $hooks, string $hook, $component, string $callback, int $priority, int $accepted_args ): array {
-
 		$hooks[] = array(
 			'hook'          => $hook,
 			'component'     => $component,
@@ -119,7 +118,6 @@ class FeedmeLoader {
 	 * @since    1.0.0
 	 */
 	public function run():void {
-
 		foreach ( $this->filters as $hook ) {
 			add_filter( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'],
 				$hook['accepted_args'] );

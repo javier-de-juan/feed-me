@@ -12,6 +12,8 @@
 
 namespace FeedMe\settings;
 
+use FeedMe\core\Feedme;
+
 /**
  * The plugin settings registration
  *
@@ -22,15 +24,6 @@ namespace FeedMe\settings;
  * @author     Javier De Juan Trujillo social@javierdejuan.es
  */
 class SettingsController {
-
-	/**
-	 * The ID of this plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string $plugin_name The ID of this plugin.
-	 */
-	private $plugin_name;
 
 	/**
 	 * The prefix used for meta values.
@@ -55,11 +48,9 @@ class SettingsController {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name    = $plugin_name;
-		$this->setting_prefix = $plugin_name . '-';
+	public function __construct() {
+		$this->setting_prefix = Feedme::PLUGIN_NAME . '-';
 		$this->settings_name  = $this->setting_prefix . 'settings';
 	}
 
@@ -70,7 +61,7 @@ class SettingsController {
 	 *
 	 */
 	public function init(): void {
-		$viewController = new SettingsViewController( $this->plugin_name );
+		$viewController = new SettingsViewController();
 		$viewController->load();
 
 		add_action( 'admin_init', [ &$this, 'initialize_settings' ] );
@@ -127,6 +118,16 @@ class SettingsController {
 	}
 
 	/**
+	 * Returns the settings name
+	 *
+	 * @since    1.0.0
+	 * @return string
+	 */
+	public function get_settings_prefix(): string {
+		return $this->setting_prefix;
+	}
+
+	/**
 	 * Returns the option value.
 	 *
 	 * @param string $option_name Option name to get.
@@ -134,7 +135,15 @@ class SettingsController {
 	 *
 	 * @return mixed|void
 	 */
-	public function get( string $option_name, $default = '' ) {
-		return get_option( $this->setting_prefix . $option_name, $default );
+	public static function get( string $option_name, $default = '' ) {
+		static $settings = null;
+
+		if ( isset( $settings ) ) {
+			return get_option( $settings->get_settings_prefix() . $option_name, $default );
+		} else {
+			$settings = new SettingsController();
+
+			return get_option( $settings->get_settings_prefix() . $option_name, $default );
+		}
 	}
 }

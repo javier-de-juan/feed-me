@@ -12,6 +12,7 @@
 
 namespace FeedMe\settings;
 
+use FeedMe\core\Feedme;
 use FeedMe\core\views\ViewParser;
 
 /**
@@ -39,10 +40,9 @@ class SettingsViewController {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
+	public function __construct() {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
 	}
 
 	/**
@@ -71,7 +71,7 @@ class SettingsViewController {
 	 * @since    1.0.0
 	 */
 	public function settings_page(): void {
-		$view_parser = new ViewParser( $this->plugin_name, new View( $this->plugin_name ) );
+		$view_parser = new ViewParser( new View() );
 		echo $view_parser->parse();
 	}
 }

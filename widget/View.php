@@ -12,6 +12,7 @@
 
 namespace FeedMe\widget;
 
+use FeedMe\core\Feedme;
 use FeedMe\settings\SettingsController;
 use FeedMe\core\views\ViewInterface;
 use FeedMe\services\TrelloService;
@@ -27,7 +28,8 @@ use FeedMe\services\TrelloService;
  */
 class View implements ViewInterface {
 
-	const PLACEHOLDER_DESCRIPTION = array(
+	const PLACEHOLDER_DESCRIPTION
+		= array(
 			'Describe con detalle el feedback. Trataremos de encontrar una solución ;-)',
 			'Pasos para reproducirlo:\n\n- Acceder al backoffice.\n- Clickar en el botón de Feed Me.\n- Rellenar los campos del formulario.\n- Clickar en Enviar\n\nComportamiento actual:\n\nEnvía una tarjeta al panel de Trello para que el equipo se ponga a ello lo antes posible.\n\nComportamiento esperado:\n\nTener vacaciones ilimitadas en la playa.',
 			'Sería genial añadir lazy loading a las imágenes de la web.',
@@ -44,15 +46,6 @@ class View implements ViewInterface {
 	private $plugin_name;
 
 	/**
-	 * The settings controller.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string $settings The settings controller used to get settings.
-	 */
-	private $settings;
-
-	/**
 	 * The controller.
 	 *
 	 * @since    1.0.0
@@ -66,12 +59,10 @@ class View implements ViewInterface {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param      string $plugin_name The ID of this plugin.
 	 */
-	public function __construct( string $plugin_name ) {
-		$this->plugin_name = $plugin_name;
-		$this->settings    = new SettingsController( $this->plugin_name );
-		$this->controller  = new WidgetController( $this->plugin_name );
+	public function __construct() {
+		$this->plugin_name = Feedme::PLUGIN_NAME;
+		$this->controller  = new WidgetController();
 	}
 
 	/**
@@ -97,28 +88,6 @@ class View implements ViewInterface {
 	}
 
 	/**
-	 * Returns the Trello Key saved in DB.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return string The Trello Key.
-	 */
-	public function get_trello_api_key(): string {
-		return $this->settings->get( 'trello-api-key' );
-	}
-
-	/**
-	 * Returns the Trello Token saved in DB.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return string The Trello Token.
-	 */
-	public function get_trello_api_token(): string {
-		return $this->settings->get( 'trello-api-token' );
-	}
-
-	/**
 	 * Returns the Trello columns for selected trello board.
 	 *
 	 * @since    1.0.0
@@ -126,9 +95,9 @@ class View implements ViewInterface {
 	 * @return array Trello columns with [trello-column-id] = trello-column-name format.
 	 */
 	public function get_columns(): array {
-		$current_store = $this->settings->get( 'trello-board' );
+		$current_store = SettingsController::get( 'trello-board' );
 
-		$trello  = new TrelloService( $this->get_trello_api_key(), $this->get_trello_api_token() );
+		$trello  = new TrelloService( SettingsController::get( 'trello-api-key' ), SettingsController::get( 'trello-api-token' ) );
 		$columns = $trello->get_columns( $current_store );
 
 		return array_filter( $columns );

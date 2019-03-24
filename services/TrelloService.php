@@ -1,4 +1,5 @@
 <?php
+//TODO: make this class singleton
 
 /**
  * The trello service to work with the API
